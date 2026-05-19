@@ -142,12 +142,12 @@ const titlePage = [
 // ── Table Helpers ────────────────────────────────────────────────────────────
 
 const TABLE_BORDERS = {
-  top: { style: BorderStyle.SINGLE, size: 1 },
-  bottom: { style: BorderStyle.SINGLE, size: 1 },
-  left: { style: BorderStyle.SINGLE, size: 1 },
-  right: { style: BorderStyle.SINGLE, size: 1 },
-  insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
-  insideVertical: { style: BorderStyle.SINGLE, size: 1 },
+  top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  insideHorizontal: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  insideVertical: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
 };
 
 const CELL_MARGINS = { top: 40, bottom: 40, left: 80, right: 80 };
@@ -159,7 +159,6 @@ function headerCell(text) {
       spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
       children: [bodyRun(text, { bold: true })],
     })],
-    shading: { fill: "D9D9D9", type: ShadingType.CLEAR },
     verticalAlign: VerticalAlign.CENTER,
     margins: CELL_MARGINS,
   });
@@ -246,10 +245,15 @@ function buildResultsTable() {
 // ── OMML Formula Helpers ─────────────────────────────────────────────────────
 
 function numberedFormula(mathChildren, number) {
+  const centerPos = Math.round(PAGE_WIDTH_DXA / 2);
   return new Paragraph({
     spacing: { before: 120, after: 120, line: LINE_SPACING_15, lineRule: "auto" },
-    tabStops: [{ type: TabStopType.RIGHT, position: PAGE_WIDTH_DXA }],
+    tabStops: [
+      { type: TabStopType.CENTER, position: centerPos },
+      { type: TabStopType.RIGHT, position: PAGE_WIDTH_DXA },
+    ],
     children: [
+      new TextRun({ children: ["\t"], font: FONT, size: BODY_SIZE }),
       new OfficeMath({ children: mathChildren }),
       new TextRun({ children: ["\t"], font: FONT, size: BODY_SIZE }),
       bodyRun(`(${number})`),
@@ -388,7 +392,7 @@ const body = [
   subsectionHeading("2.2", "Вхідні дані"),
   tableCaption("1", "Вихідні дані"),
   buildInputTable(),
-  bodyParagraph(`U = ${U} В (спільне для всіх варіантів). I₀ = U/R = ${U}/${R} = ${I0} А.`),
+  bodyParagraph(`U = ${U} В.`),
 
   subsectionHeading("2.3", "Результати вимірювань"),
   tableCaption("2", "Результати вимірювань"),
@@ -416,10 +420,14 @@ const body = [
   subsectionHeading("3.4", "Обчислення ЕРС самоіндукції"),
   bodyParagraph("ЕРС самоіндукції визначається за формулою:"),
   formulaEMF(),
-  bodyParagraph(
-    `ε_max(t = 0) = ${R} · ${I0} = ${(R * I0).toFixed(0)} В; ` +
-    `ε_min(t = ${t_data.at(-1)}) = ${R} · ${I_data.at(-1)} = ${eps_values.at(-1).toFixed(2)} В.`,
-  ),
+  unnumberedFormula([
+    new MathSubScript({ children: [new MathRun("ε")], subScript: [new MathRun("max")] }),
+    new MathRun(`(t = 0) = ${R} · ${I0} = ${(R * I0).toFixed(0)} В`),
+  ]),
+  unnumberedFormula([
+    new MathSubScript({ children: [new MathRun("ε")], subScript: [new MathRun("min")] }),
+    new MathRun(`(t = ${t_data.at(-1)}) = ${R} · ${I_data.at(-1)} = ${eps_values.at(-1).toFixed(2)} В`),
+  ]),
 
   subsectionHeading("3.5", "Графік ε = f(t)"),
   embedImage("graph_eps.png", 1000, 500),
