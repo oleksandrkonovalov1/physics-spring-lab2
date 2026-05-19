@@ -214,7 +214,7 @@ function buildResultsTable() {
   const rows = t_data.map((t, i) => {
     const L_str = i === 0 ? "—" : L_values[i - 1].toFixed(2);
     return new TableRow({
-      children: [dataCell(t.toFixed(1)), dataCell(I_data[i].toFixed(4)), dataCell(ln_I[i].toFixed(4)), dataCell(L_str), dataCell(eps_values[i].toFixed(2))],
+      children: [dataCell(t.toFixed(1)), dataCell(I_data[i].toFixed(2)), dataCell(ln_I[i].toFixed(2)), dataCell(L_str), dataCell(eps_values[i].toFixed(2))],
     });
   });
 
@@ -378,32 +378,29 @@ function embedImage(filename, widthPx, heightPx) {
 // ── Body Sections ─────────────────────────────────────────────────────────────
 
 const body = [
-  sectionHeading("1", "Мета роботи"),
+  sectionHeading("2", "Дослідження явища самоіндукції"),
+
+  subsectionHeading("2.1", "Мета роботи"),
   bodyParagraph(
     "Дослідити явище самоіндукції, яке виникає при змінах сили струму в котушці індуктивності. " +
     "Визначити індуктивність соленоїда та ЕРС самоіндукції при розмиканні кола.",
   ),
 
-  sectionHeading("2", "Експериментальні дослідження"),
+  subsectionHeading("2.2", "Експериментальні дослідження"),
 
-  subsectionHeading("2.1", "Прилади та приладдя"),
   bodyParagraph("Для виконання лабораторної роботи використовувалася програма комп'ютерної симуляції «Самоіндукція»."),
 
-  subsectionHeading("2.2", "Вхідні дані"),
-  tableCaption("1", "Вихідні дані"),
+  tableCaption("2.1", "Вихідні дані"),
   buildInputTable(),
 
-  subsectionHeading("2.3", "Результати вимірювань"),
-  tableCaption("2", "Результати вимірювань"),
+  tableCaption("2.2", "Результати вимірювань"),
   buildResultsTable(),
 
-  sectionHeading("3", "Обробка результатів"),
+  subsectionHeading("2.3", "Обробка результатів"),
 
-  subsectionHeading("3.1", "Закон спаду струму"),
   bodyParagraph("При розмиканні кола з індуктивністю сила струму спадає за експоненціальним законом:"),
   formulaCurrentDecay(),
 
-  subsectionHeading("3.2", "Обчислення індуктивності"),
   bodyParagraph("З формули (1) знаходимо індуктивність:"),
   formulaInductance(),
   bodyParagraph("Числова підстановка для t = 0,7 с:"),
@@ -411,12 +408,10 @@ const body = [
   bodyParagraph(`Середнє значення індуктивності: L = ${L_mean.toFixed(2)} Гн.`),
   bodyParagraph("Індуктивність залишається сталою для всіх моментів часу, що підтверджує її характеристику як властивість контуру."),
 
-  subsectionHeading("3.3", "Графіки I = f(t) та ln I = f(t)"),
   embedImage("graph_I_and_lnI.png", 1400, 500),
-  figureCaption("1", "Залежності I = f(t) та ln I = f(t)"),
-  bodyParagraph(`Лінійність графіка ln I = f(t) підтверджує експоненціальний закон спаду струму. Нахил прямої: k = ${(-R / L_mean).toFixed(4)}.`),
+  figureCaption("2.1", "Залежності I = f(t) та ln I = f(t)"),
+  bodyParagraph(`Лінійність графіка ln I = f(t) підтверджує експоненціальний закон спаду струму. Нахил прямої: k = ${(-R / L_mean).toFixed(2)}.`),
 
-  subsectionHeading("3.4", "Обчислення ЕРС самоіндукції"),
   bodyParagraph("ЕРС самоіндукції визначається за формулою:"),
   formulaEMF(),
   unnumberedFormula([
@@ -428,9 +423,8 @@ const body = [
     new MathRun(`(t = ${t_data.at(-1)}) = ${R} · ${I_data.at(-1)} = ${eps_values.at(-1).toFixed(2)} В`),
   ]),
 
-  subsectionHeading("3.5", "Графік ε = f(t)"),
   embedImage("graph_eps.png", 1000, 500),
-  figureCaption("2", "Залежність ε = f(t)"),
+  figureCaption("2.2", "Залежність ε = f(t)"),
 
   sectionHeading("", "Висновок"),
   bodyParagraph(
