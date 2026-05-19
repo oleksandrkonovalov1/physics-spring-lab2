@@ -65,7 +65,7 @@ function bodyParagraph(text) {
 }
 
 function sectionHeading(number, title) {
-  const text = number ? `${number} ${title}`.toUpperCase() : title.toUpperCase();
+  const text = number ? `${number} ${title}` : title;
   return new Paragraph({
     heading: HeadingLevel.HEADING_1,
     spacing: { before: 240, after: 120, line: LINE_SPACING_15, lineRule: "auto" },
@@ -78,7 +78,6 @@ function subsectionHeading(number, title) {
   return new Paragraph({
     heading: HeadingLevel.HEADING_2,
     spacing: { before: 120, after: 60, line: LINE_SPACING_15, lineRule: "auto" },
-    indent: { firstLine: FIRST_LINE_INDENT },
     keepNext: true,
     children: [new TextRun({ text: `${number} ${title}`, font: FONT, size: BODY_SIZE, bold: true })],
   });
@@ -150,13 +149,14 @@ const TABLE_BORDERS = {
   insideVertical: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
 };
 
-const CELL_MARGINS = { top: 0, bottom: 0, left: 40, right: 40 };
+const CELL_MARGINS = { top: 20, bottom: 20, left: 40, right: 40 };
+const CELL_LINE_SPACING = 240;
 
 function headerCell(text) {
   return new TableCell({
     children: [new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+      spacing: { after: 0, line: CELL_LINE_SPACING, lineRule: "auto" },
       children: [bodyRun(text, { bold: true })],
     })],
     verticalAlign: VerticalAlign.CENTER,
@@ -168,7 +168,7 @@ function dataCell(text, alignment = AlignmentType.CENTER) {
   return new TableCell({
     children: [new Paragraph({
       alignment,
-      spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+      spacing: { after: 0, line: CELL_LINE_SPACING, lineRule: "auto" },
       children: [bodyRun(text)],
     })],
     verticalAlign: VerticalAlign.CENTER,
@@ -193,11 +193,11 @@ function buildInputTable() {
   return new Table({
     rows: [
       new TableRow({
-        children: [headerCell("Варіант"), headerCell("S, ×10⁻⁴ м²"), headerCell("N"), headerCell("l, ×10⁻² м"), headerCell("R, Ом")],
+        children: [headerCell("Варіант"), headerCell("S, ×10⁻⁴ м²"), headerCell("N"), headerCell("l, ×10⁻² м"), headerCell("R, Ом"), headerCell("U, В")],
         tableHeader: true,
       }),
       new TableRow({
-        children: [dataCell("10"), dataCell("16"), dataCell("150"), dataCell("20"), dataCell("50")],
+        children: [dataCell("10"), dataCell("16"), dataCell("150"), dataCell("20"), dataCell("50"), dataCell("220")],
       }),
     ],
     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -223,7 +223,7 @@ function buildResultsTable() {
       new TableCell({
         children: [new Paragraph({
           alignment: AlignmentType.CENTER,
-          spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+          spacing: { after: 0, line: CELL_LINE_SPACING, lineRule: "auto" },
           children: [bodyRun("Середнє L", { bold: true })],
         })],
         columnSpan: 3,
@@ -392,7 +392,6 @@ const body = [
   subsectionHeading("2.2", "Вхідні дані"),
   tableCaption("1", "Вихідні дані"),
   buildInputTable(),
-  bodyParagraph(`U = ${U} В.`),
 
   subsectionHeading("2.3", "Результати вимірювань"),
   tableCaption("2", "Результати вимірювань"),
