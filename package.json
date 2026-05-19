@@ -1,0 +1,13 @@
+{
+  "name": "physics-spring-lab2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ЛР 2 — Дослідження явища самоіндукції (весняний семестр)",
+  "scripts": {
+    "calc": "jupyter notebook src/lr2-calculations.ipynb",
+    "report": "node reports/lr2/generate-report.mjs"
+  },
+  "dependencies": {
+    "docx": "^9.4.1"
+  }
+}
