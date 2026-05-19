@@ -427,19 +427,48 @@ const body = [
   figureCaption("2.2", "Залежність ε = f(t)"),
 
   sectionHeading("", "Висновок"),
-  bodyParagraph(
-    "В результаті лабораторних досліджень підтверджено, що після розмикання кола з індуктивністю " +
-    "сила струму спадає за експоненціальним законом I = I₀·e^(−Rt/L). " +
-    "Лінійність графіка ln I = f(t) є прямим підтвердженням цього закону.",
-  ),
-  bodyParagraph(
-    `Індуктивність соленоїда L = ${L_mean.toFixed(2)} Гн залишається сталою для всіх моментів часу, ` +
-    "що є характеристикою контуру, а не струму.",
-  ),
-  bodyParagraph(
-    `ЕРС самоіндукції максимальна в початковий момент розмикання (ε = ${(R * I0).toFixed(0)} В) і спадає за тим же експоненціальним законом. ` +
-    `Початкова сила струму I₀ = U/R = ${I0} А не залежить від параметрів соленоїда.`,
-  ),
+  new Paragraph({
+    spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+    indent: { firstLine: FIRST_LINE_INDENT },
+    alignment: AlignmentType.JUSTIFIED,
+    children: [
+      bodyRun("В результаті лабораторних досліджень підтверджено, що після розмикання кола з індуктивністю сила струму спадає за експоненціальним законом "),
+      new OfficeMath({ children: [
+        new MathRun("I = "),
+        new MathSubScript({ children: [new MathRun("I")], subScript: [new MathRun("0")] }),
+        new MathRun(" · "),
+        new MathSuperScript({ children: [new MathRun("e")], superScript: [new MathRun("−Rt/L")] }),
+      ] }),
+      bodyRun(". Лінійність графіка "),
+      new OfficeMath({ children: [new MathRun("ln I = f(t)")] }),
+      bodyRun(" є прямим підтвердженням цього закону."),
+    ],
+  }),
+  new Paragraph({
+    spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+    indent: { firstLine: FIRST_LINE_INDENT },
+    alignment: AlignmentType.JUSTIFIED,
+    children: [
+      bodyRun("Індуктивність соленоїда "),
+      new OfficeMath({ children: [new MathRun(`L = ${L_mean.toFixed(2)}`)] }),
+      bodyRun(" Гн залишається сталою для всіх моментів часу, що є характеристикою контуру, а не струму."),
+    ],
+  }),
+  new Paragraph({
+    spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
+    indent: { firstLine: FIRST_LINE_INDENT },
+    alignment: AlignmentType.JUSTIFIED,
+    children: [
+      bodyRun("ЕРС самоіндукції максимальна в початковий момент розмикання ("),
+      new OfficeMath({ children: [new MathRun(`ε = ${(R * I0).toFixed(0)}`)] }),
+      bodyRun(" В) і спадає за тим же експоненціальним законом. Початкова сила струму "),
+      new OfficeMath({ children: [
+        new MathSubScript({ children: [new MathRun("I")], subScript: [new MathRun("0")] }),
+        new MathRun(` = U/R = ${I0}`),
+      ] }),
+      bodyRun(" А не залежить від параметрів соленоїда."),
+    ],
+  }),
 ];
 
 // ── Document Assembly ─────────────────────────────────────────────────────────
