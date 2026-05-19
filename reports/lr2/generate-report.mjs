@@ -142,15 +142,15 @@ const titlePage = [
 // ── Table Helpers ────────────────────────────────────────────────────────────
 
 const TABLE_BORDERS = {
-  top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
-  bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
-  left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
-  right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
-  insideHorizontal: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
-  insideVertical: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+  top: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+  bottom: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+  left: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+  right: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+  insideHorizontal: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+  insideVertical: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
 };
 
-const CELL_MARGINS = { top: 40, bottom: 40, left: 80, right: 80 };
+const CELL_MARGINS = { top: 0, bottom: 0, left: 40, right: 40 };
 
 function headerCell(text) {
   return new TableCell({
