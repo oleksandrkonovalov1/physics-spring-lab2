@@ -132,7 +132,7 @@ const titlePage = [
   tabbedLine("ст. гр. ПЗПІ-25-6", "Приймачов Ю. Д."),
   new Paragraph({
     spacing: { after: 0, line: LINE_SPACING_15, lineRule: "auto" },
-    children: [titleRun("Коновалов О. С.")],
+    children: [titleRun("Коновалов О. О.")],
   }),
   emptyLine(), emptyLine(), emptyLine(), emptyLine(), emptyLine(), emptyLine(),
   centeredParagraph(titleRun(`Харків — ${year}`)),
